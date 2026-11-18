@@ -2,131 +2,180 @@
 
 ## About the Project
 
-This project explores bike-sharing rental patterns using historical data from Capital Bikeshare. The goal is to understand how bike rental demand varies across seasons, working days, holidays, and weather conditions, and how these patterns can provide useful insights for operational planning.
+This project analyzes historical bike-sharing rental data from Capital Bikeshare to understand how rental demand varies across different conditions, particularly seasons, working days, and holidays.
 
-I worked on this project as part of my data analysis learning journey, using Python for data preparation, exploratory data analysis (EDA), and visualization. I also developed an interactive dashboard with Streamlit to make the analysis easier to explore.
+The analysis focuses on identifying rental patterns through data preparation, exploratory data analysis (EDA), descriptive statistics, and data visualization. The objective is to translate historical rental data into insights that can support operational planning and better bicycle availability management.
+
+This project was developed as part of my data analytics learning journey using Python and its data analysis libraries.
 
 ## Business Questions
 
-Bike rental demand can change depending on the season, daily routines, and weather conditions. Understanding these patterns can help bike-sharing operators make better decisions about bicycle availability and operational planning.
+This analysis addresses two main business questions:
 
-This analysis focuses on the following questions:
+1. How does the season affect the total number of bike rentals?
+2. Do holidays and working days influence bike rental demand?
 
-1. How does bike rental demand vary across seasons?
-2. How does rental demand differ between working days and non-working days?
-3. Is there a difference in rental demand between holidays and non-holidays?
-4. How are weather conditions associated with changes in bike rental demand?
+Additional exploratory analysis examines rental patterns across years, months, weekdays, and weather conditions.
 
 ## Dataset
 
-This project uses the Bike Sharing Dataset from Capital Bikeshare, which contains historical rental records.
+This project uses the Bike Sharing Dataset from Capital Bikeshare, consisting of two datasets:
 
-The analysis uses two datasets:
+| Dataset | Description | Records |
+|---|---|---:|
+| `day.csv` | Daily bike rental records | 731 |
+| `hour.csv` | Hourly bike rental records | 17,379 |
 
-- **`day.csv`** — daily bike rental data.
-- **`hour.csv`** — hourly bike rental data.
+The datasets contain information about:
 
-The datasets include information about rental dates, seasons, working days, holidays, weather conditions, temperature, humidity, wind speed, and the number of casual, registered, and total rentals.
+- Date, season, year, and month.
+- Holiday and working-day indicators.
+- Weekday and hourly information.
+- Weather conditions, temperature, humidity, and wind speed.
+- Casual, registered, and total bike rentals.
+
+The main target variable for this analysis is `cnt`, representing the total number of bike rentals.
 
 ## Project Workflow
 
-### 1. Data Collection and Understanding
+### 1. Data Gathering
 
-I loaded the daily and hourly datasets using Pandas to understand their structure, available variables, and relevance to the business questions.
+Loaded the daily and hourly datasets using Pandas to understand their structure, variables, and relevance to the business questions.
 
-### 2. Data Assessment and Preparation
+### 2. Data Assessment
 
-Before analyzing the data, I examined its quality and consistency. The preparation process included:
+Examined the datasets to identify potential data quality issues through:
 
-- Checking missing values and duplicate records.
-- Reviewing data types and converting date columns to datetime format.
-- Converting categorical variables into appropriate data types where needed.
-- Examining rental counts and relevant variables to understand the dataset before analysis.
+- Checking dataset structures and data types.
+- Identifying missing values.
+- Checking duplicate records.
+- Reviewing descriptive statistics.
+- Validating total rental counts by comparing `cnt` against the sum of `casual` and `registered`.
 
-These steps helped prepare the data for exploratory analysis and visualization.
+The assessment confirmed that both datasets contained no missing values or duplicate records, and their total rental counts were consistent.
 
-### 3. Exploratory Data Analysis (EDA)
+### 3. Data Cleaning and Preparation
 
-I used descriptive statistics and visualizations to explore rental patterns and compare demand across different conditions.
+Prepared the datasets for further analysis by:
+
+- Converting date columns (`dteday`) into datetime format.
+- Converting categorical variables, including season, year, month, holiday, weekday, working day, and weather conditions, into appropriate categorical data types.
+- Mapping numerical category codes into descriptive labels to improve readability during analysis.
+
+### 4. Exploratory Data Analysis (EDA)
+
+Performed exploratory analysis using descriptive statistics and data visualization to identify rental patterns and relationships across different variables.
 
 The analysis covered:
 
-- Rental demand across seasons.
-- Rental patterns on working days and non-working days.
-- Differences between holidays and non-holidays.
-- The relationship between weather conditions and rental demand.
+- **Seasonal Patterns:** Comparing average rental demand across four seasons.
+- **Yearly Trends:** Examining differences in rental demand between 2011 and 2012.
+- **Monthly Patterns:** Identifying months with higher and lower average rental activity.
+- **Weekly Patterns:** Comparing rental demand across weekdays.
+- **Weather Conditions:** Exploring how weather conditions relate to rental demand.
+- **Holiday Patterns:** Comparing average rentals on holidays and non-holidays.
+- **Working-Day Patterns:** Examining differences between working days and non-working days.
+- **Weather Characteristics:** Exploring temperature and humidity distributions across seasons.
 
-Pandas and NumPy supported data manipulation and analysis, while Matplotlib and Seaborn were used to create visualizations.
+### 5. Visualization and Explanatory Analysis
 
-### 4. Interactive Dashboard
+Created visualizations to communicate the findings and answer the main business questions.
 
-I developed an interactive dashboard using Streamlit to present the analysis in a more accessible format.
+The visualizations include:
 
-The dashboard helps users explore bike rental patterns based on factors such as season, working days, holidays, and weather conditions without having to run through the entire notebook.
+- Histograms to examine rental count distributions.
+- Boxplots to compare rental distributions across seasons.
+- Correlation heatmaps to explore relationships between numerical variables.
+- Bar charts to compare average rental demand across seasons, holidays, and working days.
 
 ## Key Findings and Business Insights
 
 ### 1. Seasonal Rental Patterns
 
-Rental demand varied across seasons. Fall recorded the highest rental demand, followed by summer, while spring recorded the lowest demand in the analyzed dataset.
+Fall recorded the highest average daily rental demand, followed by summer, winter, and spring.
 
-**Business implication:** Historical seasonal patterns can help operators anticipate periods of higher or lower demand and plan bicycle availability accordingly.
+| Season | Average Rentals |
+|---|---:|
+| Fall | 5,644 |
+| Summer | 4,992 |
+| Winter | 4,728 |
+| Spring | 2,604 |
+
+**Business Insight:**
+
+Historical seasonal patterns can help bike-sharing operators anticipate periods of higher and lower demand and adjust bicycle availability accordingly.
 
 ### 2. Working Days and Non-Working Days
 
-The analysis showed differences in average rental demand between working days and non-working days, with working days recording a slightly higher average in the descriptive comparison.
+Working days recorded a slightly higher average rental demand than non-working days.
 
-**Business implication:** Operators should consider rental patterns across the entire week when planning bicycle availability rather than focusing only on working days.
+| Day Type | Average Rentals |
+|---|---:|
+| Working Days | 4,585 |
+| Non-Working Days | 4,330 |
+
+The difference is relatively small in the descriptive comparison.
+
+**Business Insight:**
+
+Operators should consider rental demand throughout the week rather than assuming that working days always generate substantially higher demand.
 
 ### 3. Holidays and Non-Holidays
 
-Rental demand was lower on holidays than on non-holidays in the analyzed data.
+Average rental demand was lower on holidays compared with non-holidays.
 
-One possible explanation is that travel routines may change during holidays, including changes in regular commuting activity. However, this analysis identifies a pattern and does not establish its underlying cause.
+| Day Type | Average Rentals |
+|---|---:|
+| Non-Holidays | 4,527 |
+| Holidays | 3,735 |
 
-**Business implication:** Historical holiday patterns may help operators anticipate changes in demand and adjust operational planning.
+**Business Insight:**
+
+Historical holiday patterns can help operators anticipate potential changes in rental demand and adjust operational planning accordingly.
 
 ### 4. Weather Conditions
 
-The analysis explored how rental demand varied under different weather conditions. Less favorable weather was generally associated with lower rental activity.
+The analysis showed differences in average rental demand across weather conditions.
 
-**Business implication:** Weather conditions can be considered alongside historical rental patterns when planning bicycle availability and daily operations.
+- Clear or partly cloudy conditions recorded the highest average rental demand.
+- Misty and cloudy conditions recorded lower average demand.
+- Light rain and snow conditions recorded the lowest average rental demand.
 
-*Note: These findings describe patterns observed in the dataset. They should not be interpreted as proof of causation or statistical significance.*
+**Business Insight:**
+
+Weather conditions can be considered alongside historical rental patterns when planning bicycle availability and daily operations.
+
+**Note:** These findings represent descriptive patterns observed in the dataset. They do not establish causation or statistical significance.
 
 ## Tools and Technologies
 
-- **Programming Language:** Python
-- **Data Manipulation:** Pandas, NumPy
-- **Data Visualization:** Matplotlib, Seaborn
-- **Interactive Dashboard:** Streamlit
-- **Development Environment:** Jupyter Notebook, Anaconda, Shell/Terminal
+| Category | Tools |
+|---|---|
+| Programming Language | Python |
+| Data Manipulation | Pandas, NumPy |
+| Data Visualization | Matplotlib, Seaborn |
+| Development Environment | Jupyter Notebook, Anaconda |
 
 ## Project Structure
 
 ```text
 bike-sharing-data-analysis/
-├── dashboard/
-│   ├── dashboard.py
-│   ├── day_data.csv
-│   └── Helper Functions Analysis.py
+│
 ├── data/
 │   ├── day.csv
 │   └── hour.csv
+│
 ├── notebook.ipynb
 ├── requirements.txt
-├── url.txt
 └── README.md
 ```
 
 ## Getting Started
 
-Follow the instructions below to set up the environment and run the dashboard locally.
-
 ### Prerequisites
 
-- Python 3.10
-- Anaconda or a compatible Python environment
+- Python 3.x
+- Jupyter Notebook
 - Git (optional, for cloning the repository)
 
 ### 1. Clone the Repository
@@ -136,87 +185,43 @@ git clone https://github.com/Drkyaho/bike-sharing-data-analysis.git
 cd bike-sharing-data-analysis
 ```
 
-### 2. Set Up the Environment
+### 2. Install Dependencies
 
-**Option A: Using Anaconda**
-
-Create and activate the environment:
-
-```bash
-conda create --name main-ds python=3.10
-conda activate main-ds
-```
-
-Install the required dependencies:
+Install the required Python libraries:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Option B: Using Shell/Terminal with Pipenv**
-
-Create a project directory and navigate into it if you have not cloned the repository:
+Alternatively, install them individually:
 
 ```bash
-mkdir proyek_analisis_data
-cd proyek_analisis_data
+pip install numpy pandas matplotlib seaborn jupyter
 ```
 
-If you have already cloned the repository, run the following commands from the repository directory instead.
+### 3. Run the Notebook
 
-Install and activate the Pipenv environment:
+Launch Jupyter Notebook:
 
 ```bash
-pipenv install
-pipenv shell
+jupyter notebook
 ```
 
-Install the project dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Run the Streamlit Dashboard
-
-Navigate to the dashboard directory:
-
-```bash
-cd dashboard
-```
-
-Run the application:
-
-```bash
-streamlit run dashboard.py
-```
-
-Open the local URL displayed in the terminal to access the dashboard in your browser.
-
-### 4. Explore the Notebook
-
-Open `notebook.ipynb` in Jupyter Notebook or Google Colab to explore the data preparation, exploratory analysis, and visualizations.
-
-## Dependencies
-
-The following packages are listed in the project's `requirements.txt`:
-
-- `Babel==2.17.0`
-- `matplotlib==3.10.1`
-- `pandas==2.2.3`
-- `seaborn==0.13.2`
-- `streamlit==1.42.2`
-
-Other dependencies may be included in the environment or installed transitively as required by the project.
+Open `notebook.ipynb` and run the cells sequentially to explore the data preparation, exploratory analysis, visualizations, and findings.
 
 ## What I Learned
 
-Through this project, I gained hands-on experience in preparing datasets, assessing data quality, exploring trends, comparing groups, and communicating findings through visualizations.
+Through this project, I gained practical experience in:
 
-I also learned to connect analytical questions with practical business considerations and to interpret observed patterns carefully rather than assuming that relationships automatically imply causation.
+- Assessing data quality and preparing datasets for analysis.
+- Working with daily and hourly datasets using Pandas.
+- Performing exploratory data analysis to identify patterns and trends.
+- Applying descriptive statistics to compare rental demand across different categories.
+- Creating visualizations to communicate analytical findings.
+- Translating data observations into practical business insights.
 
-This project strengthened my foundation in exploratory data analysis and helped me practice presenting data in a way that can support more informed decisions.
+This project strengthened my understanding of the data analysis workflow, from data preparation and exploration to visualization and business-oriented interpretation.
 
 ---
 
-*Developed as part of my data analysis learning journey.*
+*Developed as part of my Data Analytics learning journey.*
